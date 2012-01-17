@@ -262,6 +262,8 @@ public class BluetoothChatService {
         if (mConnectedThread3 != null) {mConnectedThread3.cancel(); mConnectedThread3 = null;}
         if (mConnectedClientThread != null) {mConnectedClientThread.cancel(); mConnectedClientThread = null;}
         if (mAcceptThread != null) {mAcceptThread.cancel(); mAcceptThread = null;}
+        connectedDevices = 0;
+        serverDevice = false;
         setState(STATE_NONE);
     }
 
@@ -333,11 +335,7 @@ public class BluetoothChatService {
         bundle.putString(BluetoothChat.TOAST, "Device connection was lost");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-        if(serverDevice) {
-        	connectedDevices = 0;
-        	serverDevice = false;
-        	stop();
-        }
+        stop();
         
         // Make it possible to be server again
         BluetoothChatService.this.start();
