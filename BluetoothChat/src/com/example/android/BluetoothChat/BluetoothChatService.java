@@ -333,7 +333,12 @@ public class BluetoothChatService {
         bundle.putString(BluetoothChat.TOAST, "Device connection was lost");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
-        if(serverDevice) connectedDevices--;
+        if(serverDevice) {
+        	connectedDevices = 0;
+        	serverDevice = false;
+        	stop();
+        }
+        
         // Make it possible to be server again
         BluetoothChatService.this.start();
     }
